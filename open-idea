@@ -1,3 +1,0 @@
-#!/bin/bash
-#echo -n $(readlink -n ${HOME}/Projects/"$@") | (nc localhost 39524)
-echo -n $(stat -f "%N"  "$@") | (nc localhost 39524)
