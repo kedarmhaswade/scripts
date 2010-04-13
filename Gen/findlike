@@ -1,0 +1,9 @@
+#!/bin/sh
+if [ $# -lt 1 ]
+then
+  echo "Usage: $0 file-name-regex"
+  exit 1
+fi
+
+pattern=$1
+find . -name $pattern

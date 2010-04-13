@@ -1,0 +1,9 @@
+#!/bin/sh
+#echo "Usage: $0 [operation-on-empty-files(=ls)]"
+if [ "x$1" == "x" ];
+then
+  opr=ls
+else
+  opr=$1
+fi
+find . -empty -exec $opr {} \;
