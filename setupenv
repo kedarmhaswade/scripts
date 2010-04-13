@@ -1,0 +1,5 @@
+echo "Global environment"
+export PATH=${PATH}:${HOME}/Scripts:${HOME}/Scripts/Mac:/opt/local/bin
+export SVN_EDITOR=/usr/bin/vim
+
+alias cdp='cd ${HOME}/Projects'

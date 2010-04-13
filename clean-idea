@@ -1,0 +1,3 @@
+#!/bin/sh 
+findopr '*.iml' "/bin/rm" 
+findopr '*.ipr' "/bin/rm"

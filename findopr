@@ -1,0 +1,4 @@
+#!/bin/sh
+#echo $1
+#echo $2
+find . -name "$1" -exec $2 {} \;

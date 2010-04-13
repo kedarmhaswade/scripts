@@ -1,0 +1,3 @@
+#!/bin/sh
+killjb
+${JBOSS_HOME}/bin/run.sh

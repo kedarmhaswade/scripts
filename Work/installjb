@@ -1,0 +1,8 @@
+#!/bin/sh
+echo 'This installs hardened jboss'
+cd ${TATSU_HOME}
+svn co ${SVN_REPO}/branch/${CURRENT_BRANCH}/binaries
+killjb
+cd ${WORK}
+\rm -rf jboss
+tar zxvf ${TATSU_HOME}/binaries/tatsu_JBoss_hard.tgz

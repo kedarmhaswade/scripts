@@ -1,0 +1,3 @@
+#!/bin/sh
+cd ${JBOSS_HOME}/..
+tar xvf ${TAS_HOME}/build/distribution/TAS_bld.tar
