@@ -1,4 +1,5 @@
 #!/bin/sh
+#attribution:  http://www.macosxhints.com/article.php?story=20100407133009466
 function usage() {
   echo "$1 [p tweet]"
 }
