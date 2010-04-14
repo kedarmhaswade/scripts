@@ -1,0 +1,1 @@
+sudo escputil -i -r /dev/usb/lp0
