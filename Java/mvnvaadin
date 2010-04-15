@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ $# -lt 2 ] ; then
+  echo "Usage: $0 company-name-with-rev-domain project-name
+fi
+mvn archetype:generate -DarchetypeGroupId=com.vaadin -DarchetypeArtifactId=vaadin-archetype-clean -DarchetypeVersion=LATEST -DgroupId=$1 -DartifactId=$2 -Dversion=1.0 -Dpackaging=war
