@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# personal files
+#rsync -azv --numeric-ids --exclude '*/.thumbnails/' --exclude '*/Cache/' --exclude '*/Trash/' --exclude '*/Desktop/' --exclude '*/.beagle/' /home/kedar /media/sda/Backups/PC.bak
+rsync -azv --numeric-ids /home/kedar/Pictures /media/fat32bkup/weekly-backups
+
+#computer files
+#rsync -azv --numeric-ids /etc /media/fat32bkup/daily-backups
