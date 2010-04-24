@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$1x" == "x" ]; then
+  port=8000
+else
+  port=$1
+fi
+export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=$port"
+exec mvn "$@"
