@@ -4,6 +4,7 @@ export PATH=${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin
 export SVN_EDITOR=/usr/bin/vim
 
 alias cdp='cd ${HOME}/Projects'
+alias cdscripts='cd ${SCRIPTS}'
 #MySQL
 if [ `uname` = "Darwin" ]; then
   alias start_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM start"

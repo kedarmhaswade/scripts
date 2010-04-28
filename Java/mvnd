@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ "$1x" == "x" ]; then
+if [ "$1x" = "x" ]; then
   port=8000
 else
   port=$1
