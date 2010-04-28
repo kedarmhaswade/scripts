@@ -1,4 +1,19 @@
 #!/bin/sh
 #echo $1
 #echo $2
-find . -name "$1" -exec $2 {} \;
+if [ $# -eq 0 ]; then
+  pattern=*
+  opr=ls
+elif [ $# -eq 1 ]; then
+  pattern=$1
+  opr=ls
+elif [ $# -eq 2 ]; then
+  pattern=$1
+  opr=$2
+else
+  echo "Usage: $0 [pattern-of-file-names(=*)] [operation-to-do-on-each(=ls)]"
+  exit 1
+fi
+echo "Doing $opr on $pattern files"
+#find . -name "$pattern" -exec "$opr" {} \;
+find . -name "$pattern" | xargs $opr

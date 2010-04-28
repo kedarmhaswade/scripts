@@ -1,3 +1,4 @@
 #!/bin/sh 
 findopr '*.iml' "/bin/rm" 
 findopr '*.ipr' "/bin/rm"
+findopr '*.iws' "/bin/rm"
