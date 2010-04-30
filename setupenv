@@ -1,6 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
-export PATH=${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
+export MYSQL=/usr/local/mysql
+export PATH=${MYSQL}/bin:${PATH}:${HOME}/Scripts/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
 export SVN_EDITOR=/usr/bin/vim
 
 alias cdp='cd ${HOME}/Projects'
