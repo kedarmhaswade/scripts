@@ -10,6 +10,7 @@ alias cdscripts='cd ${SCRIPTS}'
 if [ `uname` = "Darwin" ]; then
   alias start_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM start"
   alias stop_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM stop"
+  alias sqlplus="/opt/oracle/instantclient_10_2/sqlplus"
 fi
 #github
 alias clonescripts='git clone git@github.com:kedarmhaswade/scripts.git'
