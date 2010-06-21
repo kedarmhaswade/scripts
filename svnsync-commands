@@ -1,0 +1,1 @@
+svnsync sync file:///Users/deepk/infradna/local/svnmirror/anonsvn --sync-username svnsync --source-username km
