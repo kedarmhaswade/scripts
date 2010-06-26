@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. `dirname $0/../Linux/functions.sh`
+. `dirname $0`/../Linux/functions.sh
 
 if [ "$1" = "" ]
 then
