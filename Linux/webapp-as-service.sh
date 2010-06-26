@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/sh 
 
 # Written by Kedar Mhaswade (kedar.mhaswade@gmail.com).
 # Artistic License - you are free to use this script at your own risk.
 
-. ${basename $0}/functions.sh
-SKEL=${basename $0}/jetty-skeleton
+. `dirname $0`/functions.sh
+SKEL=`dirname $0`/jetty-skeleton
 
 usage() {
     echo "$0 web-app_war_or_folder service_name user_name (note: may prompt for sudo password)"
@@ -13,6 +13,7 @@ usage() {
 checkArgs() {
     if [ $# -ne 3 ] 
     then
+        echo "not enough arguments: $#"
         usage
         exit 1
     fi
@@ -28,7 +29,7 @@ install() {
   bailNoFolder $USER_HOME
   bailNoFolder $JETTY_HOME
   bailNoFile $JETTY_HOME/start.jar
-  bailNoFileOrFolder $WEB_APP
+  bailNoFolderOrFile $WEB_APP
   if [ -d $WEB_APP ]
   then
     relink $WEB_APP $JETTY_HOME/webapps/root
@@ -41,12 +42,12 @@ install() {
 doService() {
   bailNoFile $SKEL
   backupFile $SCRIPT_NAME
-  sudo sed -e "s/NameXXX/$SERVICE_NAME/g" \
+  sed -e "s/NameXXX/$SERVICE_NAME/g" \
            -e "s/UserNameXXX/$USER_NAME/g" \
            -e "s/UserHomeXXX/$USER_HOME/g" \
            -e "s/DaemonArgsXXX/$DAEMON_ARGS/g" <$SKEL >$SCRIPT_NAME
   chmod +x $SCRIPT_NAME
 }
-checkArgs
+checkArgs "$@"
 install
 doService
