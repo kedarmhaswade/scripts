@@ -1,0 +1,23 @@
+#!/bin/sh
+if [ $# -eq 0 ] 
+then
+  SERVER=sol.local
+  REMOTE_SHARE=/files
+fi
+if [ $# -eq 2 ] 
+then
+  SERVER=$1
+  REMOTE_SHARE=$2
+fi
+if [ $SERVER = "" -o $REMOTE_SHARE = "" ] 
+then 
+  echo "Usage: $0 nfs-server-name remote-share-name"
+  exit 1
+fi
+
+if [ ! -d /nfs ] 
+then
+  sudo mkdir /nfs
+fi
+sudo mount -o soft,intr,rsize=8192,wsize=8192 $SERVER:/$REMOTE_SHARE /nfs
+df -h
