@@ -33,8 +33,9 @@ relink() {
     if [ -L $2 ]
     then
       rm $2
-      ln -s $1 $2
+      echo "removing the link before relinking: $2"
     fi
+    ln -s $1 $2
 }
 random() {
   RANDOM=$$$(date +%s)
