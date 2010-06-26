@@ -1,6 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
-export PATH=${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
+export MYSQL=/usr/local/mysql
+export PATH=${MYSQL}/bin:${PATH}:${HOME}/Scripts/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
 export SVN_EDITOR=/usr/bin/vim
 
 alias cdp='cd ${HOME}/Projects'
@@ -9,4 +10,11 @@ alias cdscripts='cd ${SCRIPTS}'
 if [ `uname` = "Darwin" ]; then
   alias start_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM start"
   alias stop_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM stop"
+  export ORA_CLIENT_HOME=/opt/oracle/instantclient_10_2
+  alias sqlplus="${ORA_CLIENT_HOME}/sqlplus"
+  export DYLD_LIBRARY_PATH=${ORA_CLIENT_HOME}
+  export TNS_ADMIN=${ORA_CLIENT_HOME}/tns
+  export PATH=${PATH}:${HOME}/Software/gqlplus-1.12
 fi
+#github
+alias clonescripts='git clone git@github.com:kedarmhaswade/scripts.git'
