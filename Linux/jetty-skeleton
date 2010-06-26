@@ -1,0 +1,96 @@
+#! /bin/sh
+
+#Original /etc/init.d/skeleton modified for http://mydebian.blogdns.org and then modified by me for jetty
+
+# Copy this file as say "jetty-signup" in /etc/init.d if you are running a "signup" service on your server.
+# This script assumes that you have created a user dedicated to this service (e.g. "signup" in above case)
+# and installed jetty<version> in it. This user's home folder is in ${USER_HOME} and that a symlink is
+# made to jetty installation from ${USER_HOME}/jetty. See webapp-as-jetty-service.sh.
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+NAME="NameXXX"
+DESC="My Webapp $NAME as a separate service on Ubuntu"
+USER="UserNameXXX"
+USER_HOME="UserHomeXXX"
+DAEMON=/usr/bin/java
+DAEMON_ARGS="DaemonArgsXXX"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$0
+#the user that will run the script
+
+# NO NEED TO MODIFY THE LINES BELOW
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+
+        start-stop-daemon -b --start --quiet --chuid $USER -m -p $PIDFILE --exec $DAEMON -- $DAEMON_ARGS \
+                || return 2
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+        start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
+        RETVAL="$?"
+        rm -f $PIDFILE
+        return "$RETVAL"
+}
+
+case "$1" in
+  start)
+        [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+        do_start
+        case "$?" in
+                0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+                2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+        esac
+        ;;
+  stop)
+        [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+        do_stop
+        case "$?" in
+                0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+                2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+        esac
+        ;;
+  restart)
+        #
+        # If the "reload" option is implemented then remove the
+        # 'force-reload' alias
+        #
+        log_daemon_msg "Restarting $DESC" "$NAME"
+        do_stop
+        case "$?" in
+          0|1)
+                do_start
+                case "$?" in
+                        0) log_end_msg 0 ;;
+                        1) log_end_msg 1 ;; # Old process is still running
+                        *) log_end_msg 1 ;; # Failed to start
+                esac
+                ;;
+          *)
+                # Failed to stop
+                log_end_msg 1
+                ;;
+        esac
+        ;;
+  *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+        exit 3
+        ;;
+esac
+
+:
