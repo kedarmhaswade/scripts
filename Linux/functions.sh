@@ -1,7 +1,7 @@
 #!/bin/sh
 
 bailNoFolder() {
-  if [ !-d $1 ]
+  if [ ! -d $1 ]
   then
     echo "Folder $1 does not exist, exiting ..."
     exit 2;    
@@ -9,7 +9,7 @@ bailNoFolder() {
 }
 
 bailNoFile() {
-  if [ !-f $1 ]
+  if [ ! -f $1 ]
   then
     echo "File $1 does not exist, exiting ..."
     exit 2;    
@@ -17,7 +17,7 @@ bailNoFile() {
 }
 
 bailNoFolderOrFile() {
-  if [ !-d $1 -a !-f $1 ]
+  if [ ! -d $1 -a ! -f $1 ]
   then
     echo "Neither the folder nor the file $1 exists, exiting ..."
     exit 2;    
@@ -26,7 +26,7 @@ bailNoFolderOrFile() {
 #relink [existing_file_or_folder] [link_name] (note: link_name will be recreated)
 #return 1 on success and 0 on failure (how un-C-like)
 relink() {
-    if [ !-d $1 -a !-f $1 ]
+    if [ ! -d $1 -a ! -f $1 ]
     then
         echo "a dangling symlink will be created"
     fi
