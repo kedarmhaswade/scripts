@@ -8,12 +8,12 @@
 # made to jetty installation from ${USER_HOME}/jetty. See webapp-as-jetty-service.sh.
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
-NAME="NameXXX"
-DESC="My Webapp $NAME as a separate service on Ubuntu"
-USER="UserNameXXX"
-USER_HOME="UserHomeXXX"
+NAME="XXXNameXXX"
+DESC="My Webapp XXXNameXXX as a separate service on Ubuntu"
+USER="XXXUserNameXXX"
+USER_HOME="XXXUserHomeXXX"
 DAEMON=/usr/bin/java
-DAEMON_ARGS="DaemonArgsXXX"
+DAEMON_ARGS="XXXDaemonArgsXXX"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$0
 #the user that will run the script
