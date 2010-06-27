@@ -28,14 +28,13 @@ checkArgs() {
     HTTP_PORT=$5
     HTTPS_PORT=8443
     JETTY_XML=$JETTY_HOME/etc/jetty.xml
-    WAR_NAME=$JETTY_HOME/webapps/$SERVICE_NAME.war
 }
 createRootContext() {
-  echo "<?xml version="1.0"  encoding="ISO-8859-1"?>" > $1
-  echo "<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">" >> $1
-  echo "<Configure class="org.eclipse.jetty.webapp.WebAppContext">" >> $1
-  echo "  <Set name="contextPath">/</Set>" >> $1
-  echo "  <Set name="war"><SystemProperty name="jetty.home" default="."/>$2</Set>" >> $1
+  echo "<?xml version=\"1.0\"  encoding=\"ISO-8859-1\"?>" > $1
+  echo "<!DOCTYPE Configure PUBLIC \"-//Jetty//Configure//EN\" \"http://www.eclipse.org/jetty/configure.dtd\">" >> $1
+  echo "<Configure class=\"org.eclipse.jetty.webapp.WebAppContext\">" >> $1
+  echo "  <Set name=\"contextPath\">/</Set>" >> $1
+  echo "  <Set name=\"war\"><SystemProperty name=\"jetty.home" default=\"."/>$2</Set>" >> $1
   echo "</Configure>" >> $1
 }
 install() {
@@ -46,14 +45,21 @@ install() {
   if [ -d $WEB_APP ]
   then
     relink $WEB_APP $JETTY_HOME/webapps/root
+    chown $USER_NAME $JETTY_HOME/webapps/root
   fi
   if [ -f $WEB_APP ]
   then
-      cp $WEB_APP $WAR_NAME
+      cp $WEB_APP $JETTY_HOME/webapps/root.war
+      chown $USER_NAME $JETTY_HOME/webapps/root.war
   fi
-  mv $JETTY_HOME/contexts $JETTY_HOME/contexts.org
-  mkdir $JETTY_HOME/contexts
-  createRootContext $JETTY_HOME/contexts/$SERVICE_NAME.xml $WAR_NAME
+  if [ ! -d $JETTY_HOME/contexts.org ] 
+  then
+    mv $JETTY_HOME/contexts $JETTY_HOME/contexts.org
+    chown -R $USER_NAME $JETTY_HOME/contexts.org 
+    mkdir $JETTY_HOME/contexts
+  fi
+  createRootContext $JETTY_HOME/contexts/$SERVICE_NAME.xml /webapps/root.war
+  chown -R $USER_NAME $JETTY_HOME/contexts 
 }
 doService() {
   bailNoFile $SKEL
