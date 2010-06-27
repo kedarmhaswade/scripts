@@ -7,13 +7,13 @@
 SKEL=`dirname $0`/jetty-skeleton
 
 usage() {
-    echo "$0 web-app_war_or_folder service_name user_name host_ip (note: may require sudo password)"
+    echo "$0 web-app_war_or_folder service_name user_name host_ip_service_needs http_port (note: may require sudo password)"
     echo "deploys the given webapp *at the root context* in jetty installed at /home/user_name/jetty"
 }
 checkArgs() {
-    if [ $# -ne 4 ] 
+    if [ $# -ne 5 ] 
     then
-        echo "not enough arguments: $#"
+        echo "not enough arguments: $# : we need 5"
         usage
         exit 1
     fi
@@ -25,9 +25,18 @@ checkArgs() {
     SCRIPT_NAME=/etc/init.d/$SERVICE_NAME
     DAEMON_ARGS="-jar $JETTY_HOME/start.jar"
     HOST=$4
-    HTTP_PORT=80
-    HTTPS_PORT=443
-    JETTY_XML=${JETTY_HOME}/etc/jetty.xml
+    HTTP_PORT=$5
+    HTTPS_PORT=8443
+    JETTY_XML=$JETTY_HOME/etc/jetty.xml
+    WAR_NAME=$JETTY_HOME/webapps/$SERVICE_NAME.war
+}
+createRootContext() {
+  echo "<?xml version="1.0"  encoding="ISO-8859-1"?>" > $1
+  echo "<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">" >> $1
+  echo "<Configure class="org.eclipse.jetty.webapp.WebAppContext">" >> $1
+  echo "  <Set name="contextPath">/</Set>" >> $1
+  echo "  <Set name="war"><SystemProperty name="jetty.home" default="."/>$2</Set>" >> $1
+  echo "</Configure>" >> $1
 }
 install() {
   bailNoFolder $USER_HOME
@@ -40,16 +49,19 @@ install() {
   fi
   if [ -f $WEB_APP ]
   then
-      cp $WEB_APP $JETTY_HOME/webapps/root.war
+      cp $WEB_APP $WAR_NAME
   fi
+  mv $JETTY_HOME/contexts $JETTY_HOME/contexts.org
+  mkdir $JETTY_HOME/contexts
+  createRootContext $JETTY_HOME/contexts/$SERVICE_NAME.xml $WAR_NAME
 }
 doService() {
   bailNoFile $SKEL
   backupFile $SCRIPT_NAME
   sed -e 's|XXXNameXXX|'"${SERVICE_NAME}"'|g' \
       -e 's|XXXUserNameXXX|'"${USER_NAME}"'|g' \
-      -e 's|XXXUserHomeXXX|'"${USER_HOME}"'|g' \
-      -e 's|XXXDaemonArgsXXX|'"${DAEMON_ARGS}"'|g' <$SKEL >$SCRIPT_NAME
+      -e 's|XXXJettyHomeXXX|'"${JETTY_HOME}"'|g' \
+      -e 's|XXXUserHomeXXX|'"${USER_HOME}"'|g' <$SKEL >$SCRIPT_NAME 
   chmod +x $SCRIPT_NAME
 }
 editJettyXml() {

@@ -12,8 +12,8 @@ NAME="XXXNameXXX"
 DESC="My Webapp XXXNameXXX as a separate service on Ubuntu"
 USER="XXXUserNameXXX"
 USER_HOME="XXXUserHomeXXX"
-DAEMON=/usr/bin/java
-DAEMON_ARGS="XXXDaemonArgsXXX"
+JETTY_HOME="$USER_HOME/jetty"
+JAVA_HOME=/usr/lib/jvm/java-6-sun
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$0
 #the user that will run the script
@@ -27,14 +27,31 @@ SCRIPTNAME=/etc/init.d/$0
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
 . /lib/lsb/init-functions
 
+running()
+{
+    [ -f $1 ] || return 1
+    PID=$(cat $1)
+    ps -p $PID >/dev/null 2>/dev/null || return 1
+    return 0
+}
+
 #
 # Function that starts the daemon/service
 #
 do_start()
 {
 
-        start-stop-daemon -b --start --quiet --chuid $USER -m -p $PIDFILE --exec $DAEMON -- $DAEMON_ARGS \
-                || return 2
+    if start-stop-daemon -S -p $PIDFILE -c $USER -d $JETTY_HOME -b -m -a $JAVA_HOME/bin/java -- -Xmx512m -Xms512m -Djetty.home=$JETTY_HOME \
+            -Djava.io.tmpdir=/tmp -jar $JETTY_HOME/start.jar  $JETTY_HOME/etc/jetty-logging.xml $JETTY_HOME/etc/jetty.xml 
+    then
+      sleep 1
+      if running $PIDFILE
+      then
+        echo OK
+      else
+        echo FAILED
+      fi
+    fi
 }
 
 #
@@ -42,10 +59,22 @@ do_start()
 #
 do_stop()
 {
-        start-stop-daemon --stop --quiet --oknodo --pidfile $PIDFILE
-        RETVAL="$?"
-        rm -f $PIDFILE
-        return "$RETVAL"
+  start-stop-daemon -K -p $PIDFILE -d $JETTY_HOME -a $JAVA_HOME/bin/java -s HUP
+  sleep 1
+  if running $PIDFILE
+  then
+    sleep 3
+    if running $PIDFILE
+    then
+      sleep 30
+      if running $PIDFILE
+      then
+        start-stop-daemon -K -p $JETTY_PID -d $JETTY_HOME -a $JAVA -s KILL
+      fi
+    fi
+  fi
+  rm -f $PIDFILE
+  echo OK
 }
 
 case "$1" in
