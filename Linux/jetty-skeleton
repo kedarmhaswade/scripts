@@ -79,7 +79,7 @@ do_stop()
 
 case "$1" in
   start)
-        [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+        [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" 
         do_start
         case "$?" in
                 0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
@@ -87,7 +87,7 @@ case "$1" in
         esac
         ;;
   stop)
-        [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+        [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC"
         do_stop
         case "$?" in
                 0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
@@ -99,7 +99,7 @@ case "$1" in
         # If the "reload" option is implemented then remove the
         # 'force-reload' alias
         #
-        log_daemon_msg "Restarting $DESC" "$NAME"
+        log_daemon_msg "Restarting $DESC" 
         do_stop
         case "$?" in
           0|1)

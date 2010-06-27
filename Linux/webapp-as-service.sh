@@ -34,7 +34,7 @@ createRootContext() {
   echo "<!DOCTYPE Configure PUBLIC \"-//Jetty//Configure//EN\" \"http://www.eclipse.org/jetty/configure.dtd\">" >> $1
   echo "<Configure class=\"org.eclipse.jetty.webapp.WebAppContext\">" >> $1
   echo "  <Set name=\"contextPath\">/</Set>" >> $1
-  echo "  <Set name=\"war\"><SystemProperty name=\"jetty.home" default=\"."/>$2</Set>" >> $1
+  echo "  <Set name=\"war\"><SystemProperty name=\"jetty.home\" default=\".\"/>$2</Set>" >> $1
   echo "</Configure>" >> $1
 }
 install() {
