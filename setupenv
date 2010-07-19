@@ -1,14 +1,14 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
 export MYSQL=/usr/local/mysql
-export PATH=${MYSQL}/bin:${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:${SCRIPTS}/Linux:/opt/local/bin:${SCRIPTS}/Fun
+export PATH=${MYSQL}/bin:${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
 if [ `uname` = "Darwin" ] 
 then
   export PATH=$SCRIPTS/Mac:$PATH
 fi
 if [ `uname` = "Linux" ]
-  export PATH=$SCRIPTS/Linux:$PATH
 then
+  export PATH=$SCRIPTS/Linux:$PATH
 fi
 export SVN_EDITOR=/usr/bin/vim
 alias cdp='cd ${HOME}/Projects'
