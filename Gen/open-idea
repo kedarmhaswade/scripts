@@ -1,3 +1,4 @@
 #!/bin/bash
 #echo -n $(readlink -n ${HOME}/Projects/"$@") | (nc localhost 39524)
-echo -n $(stat -c "%N"  "$@") | (nc 127.0.0.1 39524)
+#echo -n $(stat -c "%N"  "$@") | (nc 127.0.0.1 39524)
+echo -n `pwd`/pom.xml | nc 127.0.0.1 39524
