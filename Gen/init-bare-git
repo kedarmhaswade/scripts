@@ -1,0 +1,14 @@
+#!/bin/sh
+# creates a folder and an empty bare git repo and starts a daemon
+
+if [ "$1x" = "x" ]
+then
+  REPO=example.git
+else
+  REPO=$1.git
+fi
+mkdir $REPO
+cd $REPO
+git init --bare
+cd ..
+`dirname $0`/start-git-daemon $REPO

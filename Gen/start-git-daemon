@@ -1,0 +1,6 @@
+#!/bin/sh
+REPO=`readlink -f $1`
+BASE_PATH=`dirname $REPO`
+echo "git daemon --reuseaddr --verbose --base-path=$BASE_PATH --export-all --enable=receive-pack --enable=upload-pack"
+echo "use: git clone git://127.0.0.1/$1"
+git daemon --reuseaddr --verbose --base-path=`pwd` --export-all --enable=receive-pack --enable=upload-pack 
