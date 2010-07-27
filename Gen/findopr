@@ -16,4 +16,4 @@ else
 fi
 echo "Doing $opr on $pattern files"
 #find . -name "$pattern" -exec "$opr" {} \;
-find . -name "$pattern" | xargs $opr
+find . -type f -name "$pattern" | xargs $opr
