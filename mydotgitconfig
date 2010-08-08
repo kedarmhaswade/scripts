@@ -1,0 +1,67 @@
+#my .gitconfig based on that of Susan Potter
+[user]
+  name =  Kedar Mhaswade # make sure you change this
+  email = kedar.mhaswade@gmail.com # make sure you change this
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[diff]
+  rename = copy
+  color = auto
+[apply]
+  whitespace = strip
+[pager]
+  color = true
+[status]
+  color = auto
+[alias]
+  co = "checkout"
+  ci = "commit"
+  ciall = "commit -a -v"
+  unmerge = "reset --hard ORIG_HEAD"
+  lsbr = "branch -a" # list all branches, even remote ones
+  mkbr = "branch" # create branch if you specify a branch name after it, e.g. git mkbr upgrading_rails
+  # remove branch named after it, e.g. git rmbr upgrading_rails
+  rmbr = "branch -d"
+  # rename branch from one name to another
+  mvbr = "branch -m"
+  # 
+  track = "branch --track"
+  # list all tags, to keep commands consistent, e.g. git lstag
+  lstag = "tag -l"
+  # create a new tag based on specified commit
+  mktag = "tag -a"
+  # remove existing tag by name
+  rmtag = "tag -d"
+  # rename tag from one name to another
+  mvtag = "tag -m"
+  # create new remote repository for project
+  mkrem = "remote add"
+  # list remote repositories
+  lsrem = "remote"
+  # show status, keep same as svn command I used most frequently
+  st = "status"
+  # another alias for status that some scripts might use
+  stat = "status"
+  # fetch and rebase from svn repository
+  spull = !git svn fetch && git svn rebase
+  # push keeping each local commit as atomic.
+  spush = !git svn dcommit
+  # initialize all submodules
+  modinit = "submodule init"
+  # update all submodules
+  modup = "submodule update"
+  # show status of all submodules
+  modst = "submodule status"
+  # add new submodule, i.e. git modadd module-name url
+  modadd = "submodule add"
+  # show last 15 log entries
+  recentlog = "log -n 15"
+  # push local committed changes to rubyforge and origin (usually GitHub)
+  osspush = !git push rubyforge master && git push origin master
+  # pull changes from rubyforge and origin (usually GitHub)
+  osspull = !git pull rubyforge master && git pull origin master
+  # sync (pull then push) from rubyforge and origin (usually GitHub)
+  osssync = !git osspull && git osspush
+
