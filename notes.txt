@@ -1,0 +1,3 @@
+Local svn
+svn co svn+ssh://username@localhost/var/svn/repos
+refer to: http://www.subversionary.org/howto/setting-up-a-subversion-server-on-ubuntu-gutsy-gibbon-server
