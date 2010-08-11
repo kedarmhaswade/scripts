@@ -9,8 +9,10 @@ fi
 if [ `uname` = "Linux" ]
 then
   export PATH=$SCRIPTS/Linux:$PATH
+  export JAVA_HOME=/usr/lib/jvm/java-6-sun
 fi
 export SVN_EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/vim
 alias cdp='cd ${HOME}/Projects'
 alias cdscripts='cd ${SCRIPTS}'
 #MySQL
