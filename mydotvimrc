@@ -1,0 +1,23 @@
+set nocompatible
+
+syntax on 
+filetype plugin indent on
+set expandtab
+set ignorecase
+set infercase
+set nowrap
+set smartcase
+set shiftwidth=2
+set softtabstop=2
+set tabstop=4
+" ruby standard 2 spaces, always
+au BufRead,BufNewFile *.rb,*.rhtml set shiftwidth=2 
+au BufRead,BufNewFile *.rb,*.rhtml set softtabstop=2 
+" set foldenable
+" set foldmethod=indent
+" To save, ctrl-s.
+nmap <c-s> :w<CR>
+imap <c-s> <Esc>:w<CR>a
+let java_highlight_all=1
+let java_highlight_functions="style"
+let java_allow_cpp_keywords=1
