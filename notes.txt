@@ -1,3 +1,4 @@
-Local svn
-svn co svn+ssh://username@localhost/var/svn/repos
-refer to: http://www.subversionary.org/howto/setting-up-a-subversion-server-on-ubuntu-gutsy-gibbon-server
+[Local svn]
+  svn co svn+ssh://username@localhost/var/svn/repos
+  refer to: http://www.subversionary.org/howto/setting-up-a-subversion-server-on-ubuntu-gutsy-gibbon-server
+  passwords in /etc/apache2/passwords by names
