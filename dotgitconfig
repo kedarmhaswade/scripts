@@ -1,11 +1,11 @@
 #my .gitconfig based on that of Susan Potter
 [user]
-  name =  Kedar Mhaswade # make sure you change this
-  email = kedar.mhaswade@gmail.com # make sure you change this
+  name =  Kedar Mhaswade 
+  email = kedar.mhaswade@gmail.com 
 [color]
-  diff = auto
-  status = auto
-  branch = auto
+  diff = always
+  status = always
+  branch = always
 [diff]
   rename = copy
   color = auto
