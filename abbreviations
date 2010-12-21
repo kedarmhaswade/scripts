@@ -1,0 +1,3 @@
+iabbrev teh the
+iabbrev psvm public static void main(String... args) {}
+iabbrev ## #{}
