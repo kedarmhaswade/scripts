@@ -1,0 +1,8 @@
+echo "Global environment"
+export JAVA_HOME=/usr/java/jdk6
+export JDK_HOME=${JAVA_HOME}
+export SCRIPT_HOME=${HOME}/scripts
+export PATH=${JAVA_HOME}/bin:${PATH}:${SCRIPT_HOME}/Java:${SCRIPT_HOME}/Gen
+export SVN_EDITOR=/usr/bin/vim
+
+alias cdp='cd ${HOME}/Projects'
