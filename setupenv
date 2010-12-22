@@ -1,7 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
 export MYSQL=/usr/local/mysql
-export PATH=${MYSQL}/bin:${PATH}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun
+export PATH=${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin
 if [ `uname` = "Darwin" ] 
 then
   export PATH=$SCRIPTS/Mac:$PATH
@@ -36,3 +36,4 @@ alias rm='rm -i'
 alias so='source'
 alias l='ls -latr'
 alias dir='ls -al | grep ^d'
+alias vmore="vim -u $SCRIPTS/vimrc.more -"
