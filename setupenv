@@ -35,5 +35,5 @@ alias c='clear'
 alias rm='rm -i'
 alias so='source'
 alias l='ls -latr'
-alias dir='ls -al | grep ^d'
-alias vmore="vim -u $SCRIPTS/vimrc.more -"
+alias folders='ls -aF1 | grep "/$" | grep -v "^\."'
+alias executables='ls -aF1 | grep "\*$" '
