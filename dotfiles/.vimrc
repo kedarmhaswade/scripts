@@ -64,5 +64,5 @@ inoremap <c-p> <ESC>/%\u.\{-1,}%<cr>c/%/e<cr>
 "source abbreviations
 source ${HOME}/.vim/abbreviations
 "make scripts executable by default
-au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod a+x <afile> | endif | endif
+"au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod a+x <afile> | endif | endif
 
