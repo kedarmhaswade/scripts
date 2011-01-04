@@ -1,8 +1,8 @@
 #!/bin/bash
 VER=RubyMine-3.0.1
 FILE=$VER.tar.gz
-#wget http://download-ln.jetbrains.com/ruby/$FILE
-#tar xvfz $FILE
+wget http://download-ln.jetbrains.com/ruby/$FILE
+tar xvfz $FILE
 cd $VER/bin
 if [ -f rubymine.sh.bak ]
 then
