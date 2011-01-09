@@ -23,11 +23,11 @@ then
     NAPTIME=60
   fi
 fi
-msg="pinging $SERVER, taking a nap of $NAPTIME seconds, q to exit (be patient)"
+msg="pinging $SERVER, taking a nap of $NAPTIME seconds, ^C to exit (be patient)"
 echo $msg
 while true 
 do
-  ping -c 1 $SERVER
+  ping -c 1 -q $SERVER
   sleep $NAPTIME
   echo $msg
 done
