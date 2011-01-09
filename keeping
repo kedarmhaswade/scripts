@@ -28,6 +28,12 @@ echo $msg
 while true 
 do
   ping -c 1 -q $SERVER
+  ping_status=$?
+  if [ $ping_status -ne 0 ]
+  then
+    echo "ping returned with -1, trying to start the network"
+    $HOME/scripts.bk/www
+  fi
   sleep $NAPTIME
   echo $msg
 done
