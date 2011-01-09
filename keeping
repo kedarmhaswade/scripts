@@ -1,0 +1,33 @@
+#!/bin/bash
+# keeps pinging the given server
+usage() {
+  echo "$0 <server=google.com> <naptime_seconds=60>"
+}
+if [ "$#" = 0 ]
+then
+  SERVER=google.com
+  NAPTIME=60
+fi
+if [ "$#" = 1 ]
+then
+  SERVER=$1
+  NAPTIME=60
+fi
+if [ "$#" = 2 ]
+then
+  SERVER=$1
+  NAPTIME=$2
+  if [[ $NAPTIME -le 0 || $NAPTIME -ge 300 ]]
+  then
+    echo "adjusting nap time to 60"
+    NAPTIME=60
+  fi
+fi
+msg="pinging $SERVER, taking a nap of $NAPTIME seconds, q to exit (be patient)"
+echo $msg
+while true 
+do
+  ping -c 1 $SERVER
+  sleep $NAPTIME
+  echo $msg
+done
