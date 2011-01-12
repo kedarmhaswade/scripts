@@ -1,0 +1,97 @@
+#!/usr/bin/env ruby
+class Options
+  DEFAULTS = {}
+  VALID_KEYS={ruby: 1, gemset: 2, rvmrc: 3, todir: 4} # values are arbitrary
+  def self.set_defaults
+    DEFAULTS[:ruby] = "1.9.2"  # default ruby version
+    DEFAULTS[:gemset] = true   # should a new gemset be created?
+    DEFAULTS[:rvmrc] = true    # should a project specific rvmrc be created?
+    DEFAULTS[:todir] = Dir.pwd # where to create the structure?
+  end
+
+  # factory method
+  def self.from_argv(argv)
+    options = Options.new
+    argv.each {|nv| options.set(nv)}
+    options
+  end
+  def initialize
+    @options = {}
+  end
+
+  def get(sym)
+    # gets the option if set, otherwise its default value, default could be nil
+    explicitly_set_option = @options[sym]
+    return DEFAULTS[sym] unless explicitly_set_option
+    explicitly_set_option
+  end
+  def set(name_value)
+    name, value = name_value.split("=")
+    sym = name.to_sym
+    unless VALID_KEYS.has_key? sym
+      puts "Invalid option, #{sym}, ignoring"
+      return
+    end
+    @options[name.to_sym] = value
+    self # to support chaining
+  end
+  def [](sym)
+    get(sym)
+  end
+  def []=(*nv)
+    @options[nv.shift.to_sym] = nv.shift
+  end
+  # method to analyze options
+  # @override
+  def to_s
+    s = ""
+    VALID_KEYS.each_key do |k| 
+      if @options.has_key? k
+        v = @options[k]
+      else
+        v = DEFAULTS[k]
+      end
+      s << k.to_s << " = " << v.to_s << "\n"
+    end
+    s
+  end
+  # class initialization
+  set_defaults
+end
+class YesNo
+  class Yes
+
+  end
+  class No
+  end
+  OPTIONS = {yes: 1, no: 0}
+  def self.yes_by_default
+    yes_or_no(OPTIONS[:yes])
+  end
+  def self.no_by_default
+    yes_or_no(OPTIONS[:yes])
+  end
+  def initialize
+    @my_default = :yes
+  end
+  def initialize(my_default)
+    @my_default = my_default
+  end
+  def to_display_string(before, after)
+    s = ""
+    s << before if before
+    s << after if after
+  end
+  private
+  def self.yes_or_no(option)
+    if option == :yes
+      form = "[Y/n]"
+    else
+      form = "[y/N]"
+    end
+    puts "Do you want to proceed? #{form}"
+    response = gets.chomp!
+  end
+end
+opts = Options.from_argv ARGV
+response = YesNo.yes_by_default
