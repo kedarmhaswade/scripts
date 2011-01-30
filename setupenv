@@ -36,7 +36,7 @@ alias rm='rm -i'
 alias so='source'
 alias l='ls -latr'
 alias folders='ls -aF1 | grep "/$" | grep -v "^\."'
-alias executables='ls -aF1 | grep "\*$" '
-
+alias execs='ls -aF1 | grep "\*$" '
+alias gopen='gnome-open'
 # shell related
 set -o vi # set vi mode
