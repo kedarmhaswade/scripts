@@ -66,3 +66,5 @@ source ${HOME}/.vim/abbreviations
 "make scripts executable by default
 "au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod a+x <afile> | endif | endif
 
+" switch between :sp, very useful
+map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
