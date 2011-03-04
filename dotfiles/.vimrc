@@ -68,3 +68,5 @@ source ${HOME}/.vim/abbreviations
 
 " switch between :sp, very useful
 map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
+" ack-grep
+set grepprg=ack-grep\ -a
