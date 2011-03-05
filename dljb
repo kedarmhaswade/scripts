@@ -1,5 +1,5 @@
 #!/bin/bash
-VER=RubyMine-3.0.1
+VER=RubyMine-3.1
 FILE=$VER.tar.gz
 wget http://download-ln.jetbrains.com/ruby/$FILE
 tar xvfz $FILE

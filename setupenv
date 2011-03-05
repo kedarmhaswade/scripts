@@ -1,7 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
 export MYSQL=/usr/local/mysql
-export PATH=${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin
+export PATH=/usr/lib/jvm/latest/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin
 if [ `uname` = "Darwin" ] 
 then
   export PATH=$SCRIPTS/Mac:$PATH
