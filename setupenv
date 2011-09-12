@@ -8,7 +8,7 @@ then
 fi
 if [ `uname` = "Linux" ]
 then
-  export JAVA_HOME=/usr/lib/jvm/java-6-sun
+  export JAVA_HOME=/usr/lib/jvm/latest
   export PATH=$SCRIPTS/Linux:$PATH
   export JAVA_HOME=/usr/lib/jvm/java-6-sun
 fi
