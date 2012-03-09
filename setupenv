@@ -41,3 +41,6 @@ alias execs='ls -aF1 | grep "\*$" '
 alias gopen='gnome-open'
 # shell related
 set -o vi # set vi mode
+# java-7!
+export JAVA_HOME=/usr/lib/jvm/latest
+export PATH=$JAVA_HOME/bin:$PATH
