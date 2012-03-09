@@ -1,7 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
 export MYSQL=/usr/local/mysql
-export PATH=/usr/lib/jvm/latest/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
+export PATH=/usr/local/sw/apache-maven-3.0.3/bin:/usr/lib/jvm/latest/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
 if [ `uname` = "Darwin" ] 
 then
   export PATH=$SCRIPTS/Mac:$PATH
@@ -25,6 +25,8 @@ if [ `uname` = "Darwin" ]; then
   export TNS_ADMIN=${ORA_CLIENT_HOME}/tns
   export PATH=${PATH}:${HOME}/Software/gqlplus-1.12
 fi
+# todo
+alias td='todo.sh'
 #github
 alias clonescripts='git clone git@github.com:kedarmhaswade/scripts.git'
 #all aliases
