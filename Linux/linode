@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Do not reveal the IP address in this script :-)
+if [ -z $1 ]; then
+  LINODE=linode2  
+else
+  LINODE=linode$1
+fi
+gnome-terminal -t prod -e "ssh root@$LINODE" --profile linode
