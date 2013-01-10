@@ -1,3 +1,4 @@
 source 'http://rubygems.org'
 gem 'lilutils'
 gem 'mixlib-cli'
+gem 'lorem-ipsum'
