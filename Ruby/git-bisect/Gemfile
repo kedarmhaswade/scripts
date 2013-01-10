@@ -2,4 +2,4 @@ source 'http://rubygems.org'
 # gems
 gem 'lilutils'
 gem 'mixlib-cli'
-gem 'lorem-ipsum'
+gem 'random_ipsum'

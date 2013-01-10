@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'lorem-ipsum'
+require 'random_ipsum'
 require 'rubygems'
 require 'mixlib/cli'
 require 'erb'
@@ -83,22 +83,23 @@ puts cli.config[:num_commits]
 1.upto cli.config[:num_commits].to_i do |i|
   # each commit chooses to change two files, along with "config" file
   # and when it is the bad commit, the special file contains the "bad" value
-  li = LoremIpsum::Generator.new
   Dir.chdir REPO_DIR do
     s = Configuration.files.size
     puts "s = #{s}"
     id = Random.rand(s)
     puts "id = #{id}"
     File.open Configuration.files[id], "a" do |f|
-      f.puts(li.next_paragraph Random.rand(100))
+      f.puts RandomIpsum.paragraphs(2, 5, 11)
     end
     id = Random.rand(s)
     File.open Configuration.files[id], "a" do |f|
-      f.puts(li.next_paragraph Random.rand(40))
+      f.puts RandomIpsum.paragraphs(2, 4, 12)
     end
     File.open Configuration::SPECIAL_FILE, "w" do |f|
-      f.puts Time.now
-      if i == cli.config["bad_commit_number"].to_i
+      puts "i = #{i}, bad_commit_number = #{cli.config[:bad_commit_number]}"
+      puts "is i same as bad commit number? #{i == cli.config[:bad_commit_number].to_i}"
+      #$stdin.readline
+      if i == cli.config[:bad_commit_number].to_i
         f.puts Configuration::BAD_VALUE
       else
         f.puts Configuration::GOOD_VALUE
@@ -111,6 +112,6 @@ puts cli.config[:num_commits]
     end
     # call git
     system("git add .")
-    system("git commit -m '#{li.next_paragraph 20}'")
+    system("git commit -m '#{RandomIpsum.paragraphs(1, 2, 10)}'")
   end
 end
