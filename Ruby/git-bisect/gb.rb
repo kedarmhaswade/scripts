@@ -3,7 +3,7 @@ require 'lorem-ipsum'
 require 'rubygems'
 require 'mixlib/cli'
 require 'erb'
-
+# creates the repo
 class MyCLI
   include Mixlib::CLI
   option :num_commits, 
