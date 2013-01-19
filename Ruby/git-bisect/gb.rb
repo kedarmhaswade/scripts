@@ -60,7 +60,7 @@ cli = MyCLI.new
 cli.parse_options
 puts cli.config.inspect
 class Configuration
-  REPO_NAME = "animator"
+  REPO_NAME = "animator-pro"
   class << self
     attr_reader :users, :files
     def get_git_config
@@ -90,25 +90,30 @@ class Configuration
   @users[:luke] = "luke@example.com"
   @files = []
   ('a'..'z').to_a.each do |f|
-    @files << (f + ".garb")
+    @files << (f + ".txt")
   end
   SPECIAL_FILES =  ["static.cfg", "runtime.cfg", "prefs.cfg"]
   SPECIAL_FILE_GOOD_CONTENTS = ["ncores=4", "memory=1024", "folder=home"]
   SPECIAL_FILE_BAD_CONTENTS = ["ncores=6", "memory=2048", "folder=/tmp"]
 end
 # create the git repo, be distructive
+REPO_DIR = cli.config[:directory] + "/" + Configuration::REPO_NAME 
+GIT_DIR = REPO_DIR + "/.git"
+# puts Configuration.get_git_config
+# puts cli.config[:num_commits].class
+# puts cli.config[:num_commits]
 Dir.chdir cli.config[:directory] do 
   system("/bin/rm -rf #{Configuration::REPO_NAME}"); 
   system("git init #{Configuration::REPO_NAME}");
   Dir.chdir Configuration::REPO_NAME do
     create_health_script "is_it_good"
+    Dir.chdir GIT_DIR do 
+      File.open "config", "w" do |f|
+        f.puts Configuration.get_git_config
+      end
+    end
   end
 end
-REPO_DIR = cli.config[:directory] + "/" + Configuration::REPO_NAME 
-GIT_DIR = REPO_DIR + "/.git"
-puts Configuration.get_git_config
-puts cli.config[:num_commits].class
-puts cli.config[:num_commits]
 # create a good commit, tag it, this commit must put the repo in "good" state
 Dir.chdir REPO_DIR do
   0.upto 2 do |fi|
