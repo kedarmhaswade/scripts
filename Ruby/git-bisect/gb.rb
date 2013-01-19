@@ -33,37 +33,22 @@ end
 def create_health_script file
   contents = <<EOF
 #!/bin/bash
-FILENAME=static.cfg
-count=0
-STATIC=0
-cat $FILENAME | while read X
-do
-  if [ "$count" == "0" ]; then
-    STATIC=$X
-  fi
-  let count++
-done
-FILENAME=runtime.cfg
-count=0
-RUNTIME=0
-cat $FILENAME | while read X
-do
-  if [ "$count" == "0" ]; then
-    RUNTIME=$X
-  fi
-  let count++
-done
-FILENAME=prefs.cfg
-count=0
-PREFS=0
-cat $FILENAME | while read X
-do
-  if [ "$count" == "0" ]; then
-    PREFS=$X
-  fi
-  let count++
-done
-if 
+f1=static.cfg
+f2=runtime.cfg
+f3=prefs.cfg
+if [[ ! (-e $f1 && -e $f2 && -e $f3) ]]; then
+  echo "files missing, no, it's not good :-("
+  exit 1
+fi
+STATIC=$(grep ".*" $f1)
+RUNTIME=$(grep ".*" $f2)
+PREFS=$(grep ".*" $f3)
+if [[ ("$STATIC" == "ncores=4") && ("$RUNTIME" == "memory=1024") && ("$PREFS" == "folder=home") ]]; then
+  echo "yes, it's good :-)"
+else
+  echo "no, it's not good :-("
+  exit 2
+fi
 EOF
   File.open file, "w" do |f|
     f.puts contents
@@ -108,7 +93,8 @@ class Configuration
     @files << (f + ".garb")
   end
   SPECIAL_FILES =  ["static.cfg", "runtime.cfg", "prefs.cfg"]
-  SPECIAL_FILE_CONTENTS = ["cores=4", "memory=1024", "folder=home"]
+  SPECIAL_FILE_GOOD_CONTENTS = ["ncores=4", "memory=1024", "folder=home"]
+  SPECIAL_FILE_BAD_CONTENTS = ["ncores=6", "memory=2048", "folder=/tmp"]
 end
 # create the git repo, be distructive
 Dir.chdir cli.config[:directory] do 
@@ -123,20 +109,41 @@ GIT_DIR = REPO_DIR + "/.git"
 puts Configuration.get_git_config
 puts cli.config[:num_commits].class
 puts cli.config[:num_commits]
-# Now create that many commits
-1.upto cli.config[:num_commits].to_i do |i|
-  # each commit chooses to change two files, along with "config" file
-  Dir.chdir REPO_DIR do
-    s = Configuration.files.size
-    puts "s = #{s}"
-    id = Random.rand(s)
-    puts "id = #{id}"
-    File.open Configuration.files[id], "a" do |f|
-      f.puts RandomIpsum.paragraphs(2, 5, 11)
+# create a good commit, tag it, this commit must put the repo in "good" state
+Dir.chdir REPO_DIR do
+  0.upto 2 do |fi|
+    File.open Configuration::SPECIAL_FILES[fi], "w" do |f|
+      f.puts Configuration::SPECIAL_FILE_GOOD_CONTENTS[fi]
     end
-    id = Random.rand(s)
-    File.open Configuration.files[id], "a" do |f|
-      f.puts RandomIpsum.paragraphs(2, 4, 12)
+  end
+  system("git add .")
+  system("git commit -m 'a good version ...'")
+  system("git tag release_1.0.0 HEAD");
+end
+# Now create that many commits
+2.upto cli.config[:num_commits].to_i do |i|
+  # each commit chooses to change two files, along with "a config file"
+  Dir.chdir REPO_DIR do
+    if i == cli.config[:bad_commit_number].to_i
+      index = Random.rand(Configuration::SPECIAL_FILES.size)
+      File.open Configuration::SPECIAL_FILES[index], "w" do |f|
+        f.puts Configuration::SPECIAL_FILE_BAD_CONTENTS[index]
+      end
+      s = Configuration.files.size
+      id = Random.rand(s)
+      File.open Configuration.files[id], "a" do |f|
+        f.puts RandomIpsum.paragraphs(2, 5, 11)
+      end
+    else
+      s = Configuration.files.size
+      id = Random.rand(s)
+      File.open Configuration.files[id], "a" do |f|
+        f.puts RandomIpsum.paragraphs(2, 5, 11)
+      end
+      id = Random.rand(s)
+      File.open Configuration.files[id], "a" do |f|
+        f.puts RandomIpsum.paragraphs(2, 4, 12)
+      end
     end
     Dir.chdir GIT_DIR do 
       File.open "config", "w" do |f|
@@ -147,16 +154,4 @@ puts cli.config[:num_commits]
     system("git add .")
     system("git commit -m '#{RandomIpsum.paragraphs(1, 2, 10)}'")
   end
-end
-def create_bad_contents
-    File.open Configuration::SPECIAL_FILE, "w" do |f|
-      puts "i = #{i}, bad_commit_number = #{cli.config[:bad_commit_number]}"
-      puts "is i same as bad commit number? #{i == cli.config[:bad_commit_number].to_i}"
-      #$stdin.readline
-      if i == cli.config[:bad_commit_number].to_i
-        f.puts Configuration::BAD_VALUE
-      else
-        f.puts Configuration::GOOD_VALUE
-      end
-    end
 end
