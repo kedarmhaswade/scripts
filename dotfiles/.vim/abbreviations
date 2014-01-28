@@ -1,0 +1,2 @@
+iabbrev psvm public static void main(String[] args) {
+iabbrev sout System.out.println()

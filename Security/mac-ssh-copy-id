@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# since the Mac does not have it, I decided to write a script to copy-id
+# besides being useful on the Mac, it helps us understand SSH a bit better :-)
+
+# cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+
+echo "You will need to enter your password once, to log in to the remote machine"
+
+echo "Provide the public key file name (always in ~/.ssh) [default: id_rsa.pub]"
+read $PUBKEY_FILE
+if [ $PUBKEY_FILE == "" ] ; then
+    PUBLIC_FILE=id_rsa.pub
