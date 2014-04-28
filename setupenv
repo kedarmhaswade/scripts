@@ -42,3 +42,5 @@ alias gopen='gnome-open'
 # shell related
 set -o vi # set vi mode
 # java-7!
+# git
+alias gd='git diff --color | more -r'
