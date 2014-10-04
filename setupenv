@@ -1,10 +1,10 @@
 echo "Global environment"
-export SCRIPTS=${HOME}/scripts
+export SCRIPTS=${HOME}/github/scripts
 export MYSQL=/usr/local/mysql
 export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
 if [ `uname` = "Darwin" ] 
 then
-  export PATH=$SCRIPTS/Mac:$PATH
+  export PATH=${PATH}:$SCRIPTS/Mac
 fi
 if [ `uname` = "Linux" ]
 then
@@ -19,11 +19,11 @@ alias cdscripts='cd ${SCRIPTS}'
 if [ `uname` = "Darwin" ]; then
   alias start_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM start"
   alias stop_mysql="/Library/StartupItems/MySQLCOM/MySQLCOM stop"
-  export ORA_CLIENT_HOME=/opt/oracle/instantclient_10_2
-  alias sqlplus="${ORA_CLIENT_HOME}/sqlplus"
-  export DYLD_LIBRARY_PATH=${ORA_CLIENT_HOME}
-  export TNS_ADMIN=${ORA_CLIENT_HOME}/tns
-  export PATH=${PATH}:${HOME}/Software/gqlplus-1.12
+  #export ORA_CLIENT_HOME=/opt/oracle/instantclient_10_2
+  #alias sqlplus="${ORA_CLIENT_HOME}/sqlplus"
+  #export DYLD_LIBRARY_PATH=${ORA_CLIENT_HOME}
+  #export TNS_ADMIN=${ORA_CLIENT_HOME}/tns
+  #export PATH=${PATH}:${HOME}/Software/gqlplus-1.12
 fi
 # todo
 alias td='todo.sh'
@@ -41,3 +41,4 @@ alias execs='ls -aF1 | grep "\*$" '
 alias gopen='gnome-open'
 # shell related
 set -o vi # set vi mode
+alias gd='git diff --color | more -r'
