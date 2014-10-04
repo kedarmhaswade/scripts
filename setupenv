@@ -1,7 +1,7 @@
 echo "Global environment"
 export SCRIPTS=${HOME}/scripts
 export MYSQL=/usr/local/mysql
-export PATH=/usr/local/sw/apache-maven-3.0.3/bin:/usr/lib/jvm/latest/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
+export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
 if [ `uname` = "Darwin" ] 
 then
   export PATH=$SCRIPTS/Mac:$PATH
@@ -41,6 +41,3 @@ alias execs='ls -aF1 | grep "\*$" '
 alias gopen='gnome-open'
 # shell related
 set -o vi # set vi mode
-# java-7!
-export JAVA_HOME=/usr/lib/jvm/latest
-export PATH=$JAVA_HOME/bin:$PATH
