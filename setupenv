@@ -1,5 +1,6 @@
 echo "Global environment"
-export SCRIPTS=${HOME}/github/scripts
+MYDIR=$(dirname $0)
+export SCRIPTS=$MYDIR
 export MYSQL=/usr/local/mysql
 export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
 if [ `uname` = "Darwin" ] 
