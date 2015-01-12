@@ -1,0 +1,21 @@
+#!/bin/bash
+set -o nounset
+set -o errexit
+if [[ "$#" = 0 ]]
+then
+  echo "usage: $0 'harmless-cmd-to-run-endlessly' (exit when harmless-cmd exits)"
+  exit 1
+fi
+echo "running $1 endlessly with a 5sec pause, okay?"
+read x
+if [[ ! ${x} =~ ^[yY]$ ]]
+then
+  echo "Phew! Running nothing even once, Quiting ..."
+  exit 0
+fi
+while true
+do
+  echo "Press [CTRL+C] to stop.."
+  sleep "5s"
+  $1
+done
