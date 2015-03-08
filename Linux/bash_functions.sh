@@ -3,6 +3,8 @@
 # ONLY USE IN REAL SCRIPTS
 # These are some everyday utilities that bash scripts may need
 
+# Note: MY_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) --> gives your script's directory
+
 # bails if the given folder does not exist
 bailNoFolder() {
   if [ ! -d $1 ]
