@@ -1,5 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
+# ONLY USE IN REAL SCRIPTS
+# These are some everyday utilities that bash scripts may need
+
+# bails if the given folder does not exist
 bailNoFolder() {
   if [ ! -d $1 ]
   then
@@ -8,6 +12,7 @@ bailNoFolder() {
   fi
 }
 
+# bails if the given file does not exist
 bailNoFile() {
   if [ ! -f $1 ]
   then
