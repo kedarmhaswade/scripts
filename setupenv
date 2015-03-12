@@ -12,6 +12,10 @@ then
   export JAVA_HOME=/usr/lib/jvm/latest
   export PATH=$SCRIPTS/Linux:$PATH
 fi
+if [[ $(uname) =~ CYGWIN* ]]
+then
+  source ${SCRIPTS}/Cygwin/setupenv
+fi
 export SVN_EDITOR=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 alias cdp='cd ${HOME}/Projects'
