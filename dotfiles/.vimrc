@@ -1,44 +1,60 @@
-filetype off 
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
-filetype indent plugin on
 syntax on
-colorscheme underwater-mod
-source $HOME/.vim/abbreviations
-set sm
-set ai
-set ts=2
-set sw=2
-set expandtab
-" run on command line for tags setup : 
-" ctags -f ~/.tags -R workspace/.../src $JAVA_HOME/src
+set background=dark
+colorscheme solarized
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 "
-set tags=~/.tags
-set complete=.,w,b,u,t,i
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-" Java stuff.
-let java_highlight_all=1
-let java_highlight_functions="style"
-let java_allow_cpp_keywords=1
+set softtabstop=2 shiftwidth=2 expandtab
+" Java abbrs
+abbr psvm public static void main(String[] args){<CR>}<esc>O
+abbr sout System.out.println("");<esc>2hi
+abbr sop System.out.println("");<esc>2hi
+abbr serr System.err.println("");<esc>2hi
 
-"completion
-let g:rubycomplete_rails = 1
+abbr forl for (int i = 0; i < ; i++) {<esc>7hi
+abbr tryb try {<CR>} catch (Exception ex) {<CR> ex.printStackTrace();<CR>}<esc>hx3ko
+abbr const public static final int
 
-"columns after 80
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-"match OverLength /\%81v.\+/
-
-"templates
-function! LoadTemplate()
-  silent! 0r ~/.vim/skel/tmpl.%:e
-  " Highlight %VAR% placeholders with the Todo colour group
-  syn match Todo "%\u\+%" containedIn=ALL
-endfunction
-autocmd! BufNewFile * call LoadTemplate()
-"Jump between %VAR% placeholders in Normal mode with
-" <Ctrl-p>
-nnoremap <c-p> /%\u.\{-1,}%<cr>c/%/e<cr>
-"Jump between %VAR% placeholders in Insert mode with
-" <Ctrl-p>
-inoremap <c-p> <ESC>/%\u.\{-1,}%<cr>c/%/e<cr>
-
+abbr ctm System.currentTimeMillis()
+abbr slept try {<CR> Thread.sleep();<CR>}<esc>hxA catch(Exception ex) {<CR> ex.printStackTrace();<CR>}<esc>hx3k$hi
