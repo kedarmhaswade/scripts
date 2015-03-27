@@ -1,5 +1,6 @@
 echo "Global environment"
-MYDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+MYDIR=$( cd "$( dirname "$0" )" && pwd )
+echo $MYDIR
 export SCRIPTS=$MYDIR
 export MYSQL=/usr/local/mysql
 export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/usr/sbin:/sbin
