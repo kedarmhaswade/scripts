@@ -1,7 +1,10 @@
 echo "Global environment"
-export SCRIPTS=${HOME}/scripts
+# export SCRIPTS=${HOME}/scripts
+MYDIR=$( cd "$( dirname "$0" )" && pwd )
+echo $MYDIR
+export SCRIPTS=$MYDIR
 export MYSQL=/usr/local/mysql
-export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/sbin
+export PATH=/usr/local/sw/apache-maven-3.0.3/bin:${MYSQL}/bin:${SCRIPTS}:${SCRIPTS}/Gen:${SCRIPTS}/Java:${SCRIPTS}/Mac:/opt/local/bin:${SCRIPTS}/Fun:/bin:/usr/bin:/usr/sbin:/sbin
 if [ `uname` = "Darwin" ] 
 then
   export PATH=${PATH}:$SCRIPTS/Mac
@@ -10,6 +13,10 @@ if [ `uname` = "Linux" ]
 then
   export JAVA_HOME=/usr/lib/jvm/latest
   export PATH=$SCRIPTS/Linux:$PATH
+fi
+if [[ $(uname) =~ CYGWIN* ]]
+then
+  source ${SCRIPTS}/Cygwin/setupenv
 fi
 export SVN_EDITOR=/usr/bin/vim
 export EDITOR=/usr/bin/vim

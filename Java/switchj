@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# switches Java version on my Linux
+# /usr/bin/java* are already links to /etc/alternatives/java*
+# this script changes the links /etc/alternatives/java* to ultimate location
+
+set -o nounset
+set -o errexit
+
+if [[ "$(id -u)" != "0" ]]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+switch_java () {
+  local TO=$1
+  export JAVA_HOME=/usr/lib/jvm/${TO}
+  if [[ ! -h ${JAVA_HOME} ]]; then
+    echo "Create the symbolic link ${JAVA_HOME} correctly and retry" 1>&2
+    exit 2
+  fi
+  local FROM=/etc/alternatives
+  for ex in appletviewer jarsigner javah jcmd jhat  jmc.ini jstat orbd rmiregistry  unpack200 java javap jconsole jinfo jps jstatd pack200 schemagen wsgen extcheck javac javapackager jcontrol jjs jrunscript jvisualvm policytool serialver wsimport idlj javadoc jdb jmap jsadebugd keytool rmic servertool xjc jar javafxpackager javaws jdeps jmc jstack native2ascii rmid tnameserv
+  do
+    rm -rf ${FROM}/${ex}
+    ln -s ${JAVA_HOME}/bin/${ex} ${FROM}
+  done
+  java -version
+  echo "JAVA_HOME=${JAVA_HOME}"
+}
+if [[ $# -lt 1 ]]; then
+  TO=8
+else
+  TO=$1
+fi
+echo "switching to java version ${TO}, Okay?"
+read x
+if [[ ${x} =~ ^[yY]$ ]]
+then
+  switch_java $TO
+else
+  echo "phew!"
+fi
+
