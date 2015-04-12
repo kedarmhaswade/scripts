@@ -1,4 +1,5 @@
 echo "Global environment"
+# export SCRIPTS=${HOME}/scripts
 MYDIR=$( cd "$( dirname "$0" )" && pwd )
 echo $MYDIR
 export SCRIPTS=$MYDIR
