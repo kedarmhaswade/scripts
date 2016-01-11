@@ -63,3 +63,11 @@ backupFile() {
     echo "copied $1 to $to"
   fi
 }
+# convert the given argument from hex to decimal
+h2d() {
+    echo "ibase=16;$@" | bc
+}
+# convert the given argument from decimal to hex
+d2h() {
+    echo "obase=16;$@" | bc
+}
