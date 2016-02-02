@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/kedar/.rvm/gems/ruby-1.9.2-p290@resume-ranker/gems/sinatra-1.3.4'
 let g:netrw_dirhist_2='/Users/kmhaswade/.m2'
 let g:netrw_dirhist_3='/Users/kmhaswade/.dnanexus_config'
+let g:netrw_dirhist_4='/Users/kmhaswade/.dnanexus_config/sessions'

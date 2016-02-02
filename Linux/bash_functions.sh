@@ -64,10 +64,24 @@ backupFile() {
   fi
 }
 # convert the given argument from hex to decimal
-h2d() {
-    echo "ibase=16;$@" | bc
+hex2dec() {
+    upper=$(echo "$@" | tr "[:lower:]" "[:upper:]")
+    echo "ibase=16;$upper" | bc
 }
 # convert the given argument from decimal to hex
-d2h() {
-    echo "obase=16;$@" | bc
+dec2hex() {
+    echo "obase=16; $@" | bc
+}
+bin2dec() {
+    echo "ibase=2;$@" | bc
+}
+dec2bin() {
+    echo "obase=2;$@" | bc
+}
+hex2bin() {
+    upper=$(echo "$@" | tr "[:lower:]" "[:upper:]")
+    echo "obase=2; ibase=16;$upper" | bc
+}
+bin2hex() {
+    echo "ibase=2; obase=16;$@" | bc
 }
