@@ -5,9 +5,9 @@ filetype off                  " required
 set softtabstop=2 shiftwidth=2 expandtab
 " Java abbrs
 abbr psvm public static void main(String[] args){<CR>}<esc>O
-abbr sout System.out.println("");<esc>2hi
-abbr sop System.out.println("");<esc>2hi
-abbr serr System.err.println("");<esc>2hi
+abbr sout System.out.println();<esc>2hi
+abbr sop System.out.println();<esc>2hi
+abbr serr System.err.println();<esc>2hi
 
 abbr forl for (int i = 0; i < ; i++) {<esc>7hi
 abbr tryb try {<CR>} catch (Exception ex) {<CR> ex.printStackTrace();<CR>}<esc>hx3ko
