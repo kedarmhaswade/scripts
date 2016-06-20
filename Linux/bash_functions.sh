@@ -85,3 +85,6 @@ hex2bin() {
 bin2hex() {
     echo "ibase=2; obase=16;$@" | bc
 }
+random_string() {
+    cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1
+}
