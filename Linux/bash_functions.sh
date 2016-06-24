@@ -88,3 +88,37 @@ bin2hex() {
 random_string() {
     cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1
 }
+
+# extract options and their arguments into variables.
+# recipe for getopts in bash -- supports only short options
+if [[ false ]];
+then
+while getopts "bf:a:" options; do
+    case "${options}" in
+        b)
+            OPT_BUILD=1
+            ;;
+        f)
+            OPT_INPUT_JSON=${OPTARG}
+            ;;
+        a)
+            OPT_ALLELE_FOLDER=${OPTARG}
+            ;;
+        *)
+            showUsage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [[ -z "${OPT_INPUT_JSON}" ]];
+then 
+    echo "no value for input json"
+    showUsage
+fi
+if [[ -z "${OPT_ALLELE_FOLDER}" ]];
+then 
+    echo "no value for allele call folder"
+    showUsage
+fi
+fi 
