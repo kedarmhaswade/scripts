@@ -93,32 +93,61 @@ random_string() {
 # recipe for getopts in bash -- supports only short options
 if [[ false ]];
 then
-while getopts "bf:a:" options; do
-    case "${options}" in
-        b)
-            OPT_BUILD=1
-            ;;
-        f)
-            OPT_INPUT_JSON=${OPTARG}
-            ;;
-        a)
-            OPT_ALLELE_FOLDER=${OPTARG}
-            ;;
-        *)
-            showUsage
-            ;;
-    esac
-done
-shift $((OPTIND-1))
+    while getopts "bf:a:" options; do
+        case "${options}" in
+            b)
+                OPT_BUILD=1
+                ;;
+            f)
+                OPT_INPUT_JSON=${OPTARG}
+                ;;
+            a)
+                OPT_ALLELE_FOLDER=${OPTARG}
+                ;;
+            *)
+                echo "showUsage"  # provide a function named showUsage
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
 
-if [[ -z "${OPT_INPUT_JSON}" ]];
-then 
-    echo "no value for input json"
-    showUsage
+    if [[ -z "${OPT_INPUT_JSON}" ]];
+    then
+        echo "no value for input json"
+        # showUsage
+    fi
+    if [[ -z "${OPT_ALLELE_FOLDER}" ]];
+    then
+        echo "no value for allele call folder"
+        # showUsage
+    fi
 fi
-if [[ -z "${OPT_ALLELE_FOLDER}" ]];
-then 
-    echo "no value for allele call folder"
-    showUsage
-fi
-fi 
+# General recipe for select case menu
+function selectTargetSet() {
+    PS3=$1
+    shift
+    options=("$@")
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            ${options[0]})
+                echo "${options[0]}"
+                break
+                ;;
+            ${options[1]})
+                echo "${options[1]}"
+                break
+                ;;
+            ${options[2]})
+                echo "${options[2]}"
+                break
+                ;;
+            ${options[3]})
+                echo "${options[3]}"
+                break
+                ;;
+            *)  # just loop ...
+                ;;
+        esac
+    done
+}

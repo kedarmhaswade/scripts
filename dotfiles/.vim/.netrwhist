@@ -1,3 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/kmhaswade/work/ntra-dnanexus-apps/primer-pool-qc/src/test/resources/qc1015'
+let g:netrw_dirhist_2='/private/tmp/stuff'
+let g:netrw_dirhist_3='/Users/kmhaswade/work/czar/czar-controller/src/test/resources/validation'
+let g:netrw_dirhist_4='/Users/kmhaswade/work/czar/czar-controller/src/test/resources/validation/cnc'
