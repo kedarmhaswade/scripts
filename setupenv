@@ -1,1 +1,1 @@
-export PATH=${PATH}:~/gh/scripts/setupenv
+export PATH=${PATH}:~/gh/scripts

@@ -2,7 +2,8 @@
  
 # from https://gist.github.com/suya55/dbbca5078401861b22b0
 # check for where the latest version of IDEA is installed
-IDEA=`ls -1d /Applications/GoGland\ * | tail -n1`
+#set -x
+IDEA=`ls -1d '/Applications/Gogland 1.0 EAP.app' | tail -n1`
 wd=`pwd`
 # Setup your working directory. Edit 'work' to your working directory.
 #working_dir=`ls -1d ~/work/$1 | head -n1`
