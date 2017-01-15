@@ -2,7 +2,7 @@
  
 # from https://gist.github.com/suya55/dbbca5078401861b22b0
 # check for where the latest version of IDEA is installed
-IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
+IDEA=`ls -1d /Applications/PyCharm\ * | tail -n1`
 wd=`pwd`
 # Setup your working directory. Edit 'work' to your working directory.
 #working_dir=`ls -1d ~/work/$1 | head -n1`

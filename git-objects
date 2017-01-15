@@ -1,0 +1,7 @@
+if [ $(basename `pwd`) = "objects" ]; then
+  if [ $(basename $(dirname `pwd`)) = ".git" ]; then
+    find . -type f | sed 's_./\([0-9a-f][0-9a-f]\)/\(.*\)_\1\2_' | git cat-file --batch-check
+    exit 0
+  fi
+fi
+echo "run from .git/objects folder"
