@@ -1,0 +1,7 @@
+#!/bin/bash
+set -x
+if [[ "$#" -ne 2 ]]; then
+  echo "Usage: $0 attachment-path to"
+  exit 2
+fi
+uuencode $1 `basename $1` | mail -s “$1” $2
