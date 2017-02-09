@@ -1,0 +1,10 @@
+#!/bin/bash
+# Encrypts and base64 encodes the given string -- prompts twice for a private key
+# no base64
+# openssl enc -aes-256-cbc -salt -in file.txt -out file.enc
+# base64
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: $0 string-to-encrypt"
+  exit 2
+fi
+echo $1 | openssl enc -aes-256-cbc -a -salt 

@@ -1,0 +1,14 @@
+#!/bin/bash
+# Decrypts the given base64 version of the string encrypted using a private key
+# no base64
+# openssl enc -aes-256-cbc -salt -in file.txt -out file.enc
+# base64
+# openssl enc -d -aes-256-cbc -in file.enc -out file.txt
+#
+# # decrypt base64-encoded version
+# openssl enc -d -aes-256-cbc -a -in file.enc -out file.txt
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: $0 string-to-encrypt"
+  exit 2
+fi
+echo $1 | openssl enc -d -aes-256-cbc -a 
