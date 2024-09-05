@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+DIR1=/media/$USER/backup1/books-articles-all/books-articles/contents/pdfs
+
+find ${DIR1} -name "*$1*" -type f -print
