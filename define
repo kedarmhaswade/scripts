@@ -1,0 +1,5 @@
+#!/bin/sh
+# espeak for the pronunciation audible output and phonetic alphabet string
+echo "Phoneme mnemonics: $(espeak -ven-us -x "$1" 2> /dev/null)"       
+# dict - the client for the dictionary server
+dict "$1"       
