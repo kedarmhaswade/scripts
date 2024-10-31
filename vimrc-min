@@ -2,6 +2,7 @@
 set ic ai nocp digraph ek hid   ru sc vb wmnu   noeb noet nosol
 set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l 
 set comments=b:#,:%,n:>
-set list listchars=tab:»·,trail:·
+" originally it was set list listchars=tab:»·,trail:·  which is rather cumbersome
+set list listchars=
 set viminfo=%,'50,\"100,:100,n~/.viminfo
 setlocal spell spelllang=en_us

@@ -450,3 +450,15 @@ written or contributed by:
  S.G. Ravenhall           # great de-html script
  Greg Ubben               # many contributions & much help
 -------------------------------------------------------------------------
+
+
+
+# My addition (31 October 2024)
+# Rename files from <first>-<second>-<rest> to <second>-<first>-<rest>:
+# Be careful with the mv command; take a backup or try elsewhere first 
+for s in *
+do
+t=$(echo $s | sed 's/\([^-]*\)-\([^-]*\)-\(.*\)/\2-\1-\3/')
+mv $s $t
+done
+
