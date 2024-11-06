@@ -1,8 +1,12 @@
 " https://www.guckes.net/vim/setup.html
 set ic ai nocp digraph ek hid   ru sc vb wmnu   noeb noet nosol
-set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l 
+"set bs=2 fo=cqrt ls=2 shm=at tw=72 ww=<,>,h,l 
+set bs=2 fo=cqrt ls=2 shm=at ww=<,>,h,l 
 set comments=b:#,:%,n:>
 " originally it was set list listchars=tab:»·,trail:·  which is rather cumbersome
 set list listchars=
 set viminfo=%,'50,\"100,:100,n~/.viminfo
-setlocal spell spelllang=en_us
+set spell spelllang=en_us spellfile=~/.vim/spell/en.utf-8.add
+set hlsearch incsearch
+set omnifunc=syntaxcomplete#Complete
+set dictionary+=/usr/share/dict/words

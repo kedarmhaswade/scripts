@@ -1,6 +1,6 @@
 #!/bin/sh
 # espeak for the pronunciation audible output and phonetic alphabet string
-# dict - the client for the dictionary server
+# only consult the wordnet dictionary with dict
 # we prefer "$*" to "$@" here!
-dict "$*" | more
+dict -d wn "$*" | more
 echo "Phoneme mnemonics: $(espeak -ven-us -x "$*" 2> /dev/null)"       
