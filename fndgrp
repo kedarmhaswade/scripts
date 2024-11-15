@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# recursively grep in files in current folder
+if [[ $# -eq 0 ]]
+then
+  echo "Usage: $0 pattern [files=*]"
+  exit 1
+fi 
+
+if [[ -z "$2" ]]
+then
+  ft=*
+  else 
+  ft=$2
+fi
+
+find . -type f -name "$ft" -exec grep -nIH "$1" {} \;
