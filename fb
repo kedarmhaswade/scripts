@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 DIR1=/media/$USER/backup1/books-articles-all/books-articles/contents
 
-find ${DIR1} -iname "*$1*" -type f -print
+find ${DIR1} -iname "*$1*" -type f -printf '%12s %p\n'
