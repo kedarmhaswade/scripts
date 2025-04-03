@@ -1,0 +1,16 @@
+#!/bin/zsh
+typeset -a vs
+allvs=(47 72 43 42 29 47 30 28 34 42 55 20 34 27 20 24 28 78)
+t=0
+for ((ch=2;ch<=18;ch++))
+do
+  vs=$allvs[$ch] 
+  # download all in the same folder
+  # mkdir -p ch-${ch}
+  for ((v=1;v<=vs;v++))
+  do
+    curl -L "https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP${ch}/${ch}-${v}.MP3" -O
+    t=$((t+1))
+  done
+  echo "#total verses downloaded: $t"
+done
