@@ -32,16 +32,16 @@ function fetch() {
 fetch $1
 ret=$?
 echo "ret: ${ret}"
-if [[ ${ret} -eq 1 ]]; then
+#if [[ ${ret} -eq 1 ]]; then
   echo "Trying prefixes"
   for p in {1..2}
   do
     fetch $1 $p
     ret=$?
   done
-  if [[ ${ret} -eq 1 ]]; then
+#  if [[ ${ret} -eq 1 ]]; then
     echo "Trying suffixes"
     fetch $1 '' "_rr"
     ret=$?
-  fi 
-fi
+#  fi 
+#fi
