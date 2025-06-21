@@ -1,0 +1,47 @@
+#!/bin/bash
+# set -x
+# Download US pronunciations from Google
+
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: $0 base-word"
+  exit 2
+fi
+function fetch() {
+  dlok=0
+  base_url="https://ssl.gstatic.com/dictionary/static/sounds/20220808"
+  base_word=$1
+  prefix=$2
+  suffix=$3
+  for i in {1..5} 
+  do
+    url=${base_url}/${base_word}--${prefix}_us_${i}${suffix}.mp3
+    echo "${url}"
+    if curl -L --output /dev/null --silent --head --fail "$url" ; then
+      curl --silent -L ${url} -O
+      echo "downloaded ${url}"
+      dlok=1
+    fi
+  done
+
+  if [[ ${dlok} -eq 1 ]]; then
+    return 0 # success
+  else
+    return 1 # failure
+  fi
+}
+fetch $1
+ret=$?
+echo "ret: ${ret}"
+if [[ ${ret} -eq 1 ]]; then
+  echo "Trying prefixes"
+  for p in {1..2}
+  do
+    fetch $1 $p
+    ret=$?
+  done
+  if [[ ${ret} -eq 1 ]]; then
+    echo "Trying suffixes"
+    fetch $1 '' "_rr"
+    ret=$?
+  fi 
+fi
