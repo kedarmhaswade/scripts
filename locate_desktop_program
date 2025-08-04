@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# See https://askubuntu.com/a/901012/326955
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 some-string-for-the-desktop-program-name-eg-files"
   exit 1
