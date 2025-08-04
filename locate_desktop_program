@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 some-string-for-the-desktop-program-name-eg-files"
+  exit 1
+fi
+locate -b '.desktop' | xargs grep -ils "^Name.*=$1" | xargs grep '^Exec.*'

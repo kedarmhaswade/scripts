@@ -15,7 +15,7 @@ function fetch() {
   for i in {1..5} 
   do
     url=${base_url}/${base_word}--${prefix}_us_${i}${suffix}.mp3
-    echo "${url}"
+    #echo "${url}"
     if curl -L --output /dev/null --silent --head --fail "$url" ; then
       curl --silent -L ${url} -O
       echo "downloaded ${url}"
