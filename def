@@ -3,4 +3,4 @@
 # dict - the client for the dictionary server
 # we prefer "$*" to "$@" here!
 dict "$*" | more
-echo "Phoneme mnemonics: $(espeak -ven-us -x "$*" 2> /dev/null)"       
+#echo "Phoneme mnemonics: $(espeak -ven-us -x "$*" 2> /dev/null)"       
