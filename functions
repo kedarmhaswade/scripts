@@ -1,3 +1,4 @@
+# https://superuser.com/a/611582/350075
 countdown() {
     start="$(( $(date '+%s') + $1))"
     while [ $start -ge $(date +%s) ]; do
