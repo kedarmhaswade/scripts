@@ -1,1 +1,62 @@
-sudo journalctl -kg memory
+#!/usr/bin/env bash
+# Thanks to cg! Memory / freeze diagnostic collector
+# Collects logs about EDAC, MCE, OOM, NVMe timeouts, GPU lockups, hangs.
+
+OUT="mem_diagnostic_$(date +%Y%m%d_%H%M%S).log"
+
+echo "=== MEMORY & FREEZE DIAGNOSTIC ==="            | tee "$OUT"
+echo "Timestamp: $(date)"                            | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== SYSTEM INFO ==="                          | tee -a "$OUT"
+uname -a                                            | tee -a "$OUT"
+lsb_release -a 2>/dev/null                          | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== RAM INFO ==="                             | tee -a "$OUT"
+free -h                                             | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== SWAP INFO ==="                            | tee -a "$OUT"
+swapon --show                                       | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== EDAC / MEMORY CONTROLLER ERRORS ==="      | tee -a "$OUT"
+journalctl -k | grep -Ei "edac|ecc|ibecc"           | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== RASDAEMON ERRORS ==="                     | tee -a "$OUT"
+if command -v ras-mc-ctl >/dev/null; then
+    sudo ras-mc-ctl --errors                        | tee -a "$OUT"
+else
+    echo "rasdaemon not installed"                  | tee -a "$OUT"
+fi
+echo                                                | tee -a "$OUT"
+
+echo "=== MACHINE CHECK (MCE) ERRORS (if any) ==="  | tee -a "$OUT"
+journalctl -k | grep -Ei "mce|machine.check|hardware.error" | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== OOM KILLER EVENTS ==="                    | tee -a "$OUT"
+journalctl -k | grep -Ei "out of memory|oom|killed process" | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== GPU LOCKUPS / i915 / hangs ==="           | tee -a "$OUT"
+journalctl -k | grep -Ei "i915|gpu|hang|reset"      | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== NVME / DISK / I/O TIMEOUTS ==="           | tee -a "$OUT"
+journalctl -k | grep -Ei "nvme|i/o error|timeout|resetting" | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== KERNEL BUGS / WARNINGS ==="               | tee -a "$OUT"
+journalctl -k | grep -Ei "BUG:|WARNING:|stack trace" | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== LAST BOOT MESSAGES (200 lines) ==="       | tee -a "$OUT"
+journalctl -b -1 -n 200                             | tee -a "$OUT"
+echo                                                | tee -a "$OUT"
+
+echo "=== END OF REPORT ==="                        | tee -a "$OUT"
+echo "Collected in: $OUT"
+
