@@ -14,4 +14,4 @@ then
   ft=$2
 fi
 
-find . -type f -name "$ft" -exec grep -nIH "$1" {} \;
+find . -type f -name "$ft" -exec grep -niH "$1" {} \;

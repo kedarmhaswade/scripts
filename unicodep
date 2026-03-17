@@ -1,0 +1,4 @@
+#!/bin/bash
+MY_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cat ${MY_DIR}/UnicodeData.txt | grep -i sigma | awk -F';' '{printf "%s |0x%s| %c\n", $2, $1, strtonum("0x"$1)}'
+
