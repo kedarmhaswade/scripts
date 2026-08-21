@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#developed by ChatGPT; only prompts are mine
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $(basename "$0") WORD"
+    exit 1
+fi
+
+grep -i "^${1} " /usr/share/pocketsphinx/model/en-us/cmudict-0.7b
+espeak-ng --ipa "${1}"
