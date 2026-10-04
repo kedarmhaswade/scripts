@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 
 #developed by ChatGPT; only prompts are mine
 
@@ -6,6 +6,40 @@ if [[ $# -eq 0 ]]; then
     echo "Usage: $(basename "$0") WORD"
     exit 1
 fi
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+CMULINE=$(grep -i "^${1} " /usr/share/pocketsphinx/model/en-us/cmudict-0.7b)
+echo "$CMULINE"
 
-grep -i "^${1} " /usr/share/pocketsphinx/model/en-us/cmudict-0.7b
+echo "$CMULINE" | awk -v file="${SCRIPT_DIR}/arpabet.txt" '
+    BEGIN {
+        while ((getline line < file) > 0) {
+            # Clean any hidden Windows carriage returns (\r) from the dict file
+            sub(/\r$/, "", line)
+            upper_line = toupper(line)
+            
+            # FIX: Properly extract the first element using index [1]
+            split(upper_line, parts, /[[:space:]]+/)
+            key = parts[1]
+            
+            lines[key] = line
+        }
+        close(file)
+    }
+    {
+        # Clean any trailing carriage return from the CMULINE input line
+        sub(/\r$/, "", $0)
+
+        for(i=2; i<=NF; i++) {
+            # FIX: Restored your regex to strip the 0, 1, or 2 stress marker digits
+            sub(/[012]$/, "", $i)
+            #print $i
+            
+            search_key = toupper($i)
+            if (search_key in lines) {
+                print lines[search_key]
+            }
+        }
+    }
+'
+
 espeak-ng --ipa "${1}"
